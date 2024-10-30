@@ -1,0 +1,44 @@
+# Launch and Connect to a Free-Tier Amazon EC2 Instance
+
+This guide provides steps to launch a free-tier EC2 instance on AWS and connect to it via EC2 Instance Connect and SSH using a .pem key file.
+
+## Prerequisites
+
+- AWS Account: Sign up for AWS if you don't have an account.
+- AWS Free Tier: Ensure you are eligible for free-tier usage.
+
+Launch an EC2 Instance (Free Tier)
+
+1. Go to the EC2 Dashboard on the AWS Management Console.
+2. Click Launch Instance.
+3. Choose an Amazon Machine Image (AMI):
+   - Select Amazon Linux 2 AMI (Free Tier eligible).
+4. Choose an Instance Type:
+   - Select t2.micro (free-tier eligible).
+5. Configure Instance Details:
+   - Leave default settings or customize as needed.
+6. Add Storage:
+   - Leave the default storage (8 GB SSD for free tier).
+7. Add Tags (optional): Add tags if needed.
+8. Configure Security Group:
+   - Add an inbound rule for SSH (port 22) with source 0.0.0.0/0 to allow SSH access.
+9. Select or Create a Key Pair:
+   - Select Create a new key pair.
+   - Download the .pem file and keep it secure, as it will be required for SSH access.
+10. Click Launch Instance.
+
+Connect with EC2 Instance Connect (AWS Console)
+
+1. In the EC2 Dashboard, go to Instances.
+2. Select your instance, and from the Actions dropdown, select Connect.
+3. Choose EC2 Instance Connect and click Connect to open the terminal window in your browser.
+
+Connect from a Local Machine Using the .pem File
+
+1. Change the Permissions of the .pem file:
+   chmod 400 /path/to/your-key.pem
+
+2. SSH into the Instance:
+   - Use the public IP address of your instance (available in the EC2 console) and run the following command:
+   ssh -i /path/to/your-key.pem ec2-user@<public-IP-address>
+   - Replace /path/to/your-key.pem with the path to your key file and <public-IP-address> with your instance’s IP.
