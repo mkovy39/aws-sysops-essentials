@@ -1,0 +1,33 @@
+Troubleshooting EC2 Launch Issues
+- Common problems encountered during EC2 instance launches and methods to diagnose them.
+- Issues may include insufficient permissions, lack of available instance types in the selected region, and account limits.
+- Steps to resolve include checking IAM policies, adjusting instance configurations, and monitoring the AWS Service Health Dashboard.
+
+Troubleshooting EC2 SSH Issues
+- Causes of SSH connection failures to EC2 instances, such as key pair issues, security group configurations, and network ACL settings.
+- Troubleshooting steps involve verifying the .pem file permissions, ensuring port 22 is open in the security group, and confirming the correct IP address.
+
+EC2 Instance Purchasing Options
+- On-Demand Instances offer flexibility with no long-term commitments, ideal for unpredictable workloads and short-term needs. Pay by the hour or second without upfront payments, suited for development and testing.
+- Reserved Instances (RIs) provide a discounted rate for one- or three-year terms, suitable for predictable, continuous workloads. Three types include Standard RIs (maximum savings, limited flexibility), Convertible RIs (some flexibility to change attributes), and Scheduled RIs (available on specific recurring schedules).
+- Savings Plans offer savings on AWS usage by committing to a consistent dollar amount per hour for one or three years. Compute Savings Plans apply across instance families and regions, while EC2 Instance Savings Plans are specific to instance family and region.
+- Spot Instances  allow access to unused EC2 capacity at significantly reduced costs, up to 90% off On-Demand prices. Suitable for fault-tolerant applications, batch processing, and workloads with flexible timing. Spot Instances may be interrupted if capacity is needed elsewhere.
+- Dedicated Hosts offer physical servers dedicated to a single user, ideal for compliance, regulatory needs, or software licenses that require per-socket or per-core licensing. Provides greater control over the hardware.
+- Dedicated Instances run on hardware dedicated to a single customer but are managed by AWS. These instances provide physical isolation for compliance needs without the hardware control of Dedicated Hosts.
+
+Spot Instances & Spot Fleet
+- Spot Instances offer cost savings by utilizing unused EC2 capacity. Ideal for applications that are fault-tolerant and can handle interruptions.
+- Spot Fleet is a collection of Spot Instances with defined constraints to achieve scale and redundancy, allowing for large-scale processing at lower costs.
+
+EC2 Instances Launch Types Hands-On
+- Hands-on exploration of different EC2 launch types, including Auto Scaling groups, Spot Instances, and Dedicated Hosts.
+- Emphasis on selecting the right configuration based on workload requirements, cost considerations, and availability needs.
+
+Burstable Instances
+- Overview of burstable instances (T2, T3, T4g) that allow temporary CPU usage spikes. Suitable for workloads with low baseline CPU needs but occasional bursts.
+- Uses a CPU credit system, enabling higher performance for short periods above the baseline.
+
+Elastic IPs
+- Explanation of Elastic IPs, which are static IPv4 addresses that can be assigned to EC2 instances.
+- Useful for applications that require a consistent IP address despite stopping and starting instances.
+- Note on potential costs associated with unused Elastic IPs.
