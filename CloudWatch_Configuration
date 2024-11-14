@@ -1,0 +1,108 @@
+Step 1: Create an IAM Role for CloudWatch
+
+1. Go to the IAM Console on AWS.
+2. Select Roles from the left menu and click Create Role.
+3. Choose AWS Service as the trusted entity, and select EC2 as the use case for the role.
+4. Click Next and attach the policy named CloudWatchAgentServerPolicy.
+   - This policy allows the EC2 instance to send metrics and logs to CloudWatch.
+5. Complete the role creation and name it something like CloudWatchAgentRole.
+
+Step 2: Launch an EC2 Instance and Attach the IAM Role
+
+1. Go to the EC2 Console and click Launch Instance.
+2. Choose an Amazon Machine Image (AMI), such as Amazon Linux 2 AMI.
+3. Select an instance type, like t2.micro (free-tier eligible).
+4. In the Configure Instance step, attach the IAM role you created (CloudWatchAgentRole).
+5. Complete the instance setup and launch the instance.
+
+Step 3: Connect to the EC2 Instance
+
+1. Connect to your EC2 instance using SSH from your terminal.
+   
+   ssh -i /path/to/your-key.pem ec2-user@<public-ip-address>
+   
+
+ Step 4: Install Apache HTTP Server and Configure Web Page
+
+1. Switch to the root user to execute commands as a superuser:
+   
+   sudo su
+   
+
+2. Install Apache HTTP server (httpd):
+   
+   yum install httpd -y
+   
+
+3. Create a simple HTML page that says "Hello World!":
+   
+   echo 'hello world!' > /var/www/html/index.html
+   
+
+4. Start the Apache HTTP server:
+   
+   systemctl start httpd
+   
+
+5. Enable Apache HTTP server to start on boot:
+   
+   systemctl enable httpd
+   
+
+6. View the Apache HTTP server’s access log:
+   
+   cat /var/log/httpd/access_log
+   
+
+7. View the Apache HTTP server’s error log:
+   
+   cat /var/log/httpd/error_log
+   
+
+Step 5: Install and Configure CloudWatch Agent
+
+1. Install the CloudWatch Agent on your instance:
+   
+   sudo yum install amazon-cloudwatch-agent -y
+   
+
+2. Configure the CloudWatch Agent to send logs to CloudWatch:
+   - Run the configuration wizard to generate a configuration file:
+     
+     sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+     
+   - This wizard will guide you through setting up metrics and log paths. Specify the log paths (/var/log/httpd/access_log and /var/log/httpd/error_log) when prompted.
+
+3. Fetch the CloudWatch Agent configuration and start the agent:
+   
+   sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:AmazonCloudWatch-linux -s
+   
+
+   - -a fetch-config: Fetches the agent configuration.
+   - -m ec2: Specifies that this configuration is for an EC2 instance.
+   - -c ssm:AmazonCloudWatch-linux: Refers to the Systems Manager (SSM) parameter name that contains the configuration.
+   - -s: Starts the agent with the fetched configuration.
+
+
+Summary of Commands
+
+
+Connect to the instance
+ssh -i /path/to/your-key.pem ec2-user@<public-ip-address>
+
+Switch to root user
+sudo su
+
+Install and configure Apache HTTP server
+yum install httpd -y
+echo 'hello world!' > /var/www/html/index.html
+systemctl start httpd
+systemctl enable httpd
+cat /var/log/httpd/access_log
+cat /var/log/httpd/error_log
+
+Install and configure CloudWatch Agent
+sudo yum install amazon-cloudwatch-agent -y
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:AmazonCloudWatch-linux -s
+
