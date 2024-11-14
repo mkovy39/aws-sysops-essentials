@@ -1,0 +1,54 @@
+EC2 Image Builder Overview
+
+EC2 Image Builder is an AWS service that helps automate the creation, maintenance, validation, and deployment of customized Amazon Machine Images (AMIs). It simplifies the process of building, testing, and distributing images for EC2 instances, ensuring images are kept up-to-date with the latest security patches and software.
+
+What EC2 Image Builder Does
+
+- Automates the image creation process, including building, testing, and distributing.
+- Maintains up-to-date images by applying patches and software updates.
+- Validates images through automated tests before deployment.
+- Distributes images across multiple regions.
+
+Service Type
+
+EC2 Image Builder is a managed service provided by AWS, meaning AWS takes care of the underlying infrastructure, scaling, and maintenance. It enables you to set up automated pipelines for creating and managing AMIs.
+
+Steps to Configure EC2 Image Builder
+
+1. Open EC2 Image Builder Console: Go to the EC2 Image Builder console in AWS.
+
+2. Create an Image Pipeline:
+   - Select Create Image Pipeline to start the configuration process.
+
+3. Define Image Recipe:
+   - Choose a Base Image: This is the starting image (e.g., Amazon Linux 2 or Windows Server) that your customizations will be applied to.
+   - Add Components: Components are scripts or packages that define software, patches, or other customizations applied to the base image.
+   - Specify Image Recipe (details in the recipe section below).
+
+4. Configure Build and Test Settings:
+   - Build Schedule: Set up automatic builds (e.g., weekly or monthly) to keep images up-to-date.
+   - Test Settings: Add tests that the image must pass to validate that it is functional and meets compliance requirements.
+
+5. Configure Output Settings:
+   - Choose where to distribute the AMI. You can specify target AWS regions.
+
+6. Launch the Pipeline:
+   - Start the pipeline, which will build the image according to the recipe and schedule you configured.
+
+Recipe
+
+An Image Recipe in EC2 Image Builder defines the configuration of an image. It includes:
+
+- Base Image: The starting point, such as an official Amazon Linux or Windows image.
+- Components: Customizations applied to the base image, such as installing software, configuring settings, and applying patches.
+- Versioning: Each recipe version can track different configurations over time, enabling updates and reusability.
+
+Recipes are essential for customizing and controlling what software and settings are included in each built image.
+
+Cleanup
+
+Once the images are built, it’s essential to perform regular cleanup to manage storage costs and avoid unnecessary AMIs. 
+
+- Delete Old Versions: Remove outdated image versions in the Image Builder console to save storage costs.
+- Delete Unused Pipelines: If a pipeline is no longer needed, delete it to avoid unnecessary builds.
+- Snapshot Cleanup: Clean up snapshots associated with old AMIs if they are no longer in use.
