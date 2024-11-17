@@ -1,0 +1,29 @@
+# AWS Systems Manager Overview
+
+## What is AWS Systems Manager?
+
+AWS Systems Manager is a **management service** that provides a unified interface for managing AWS resources and on-premises servers. It simplifies operational tasks such as resource configuration, software installation, patch management, and monitoring across a wide range of environments.
+
+## What is it Used For?
+
+AWS Systems Manager is used to:
+- **Centralize Operations**: Manage your infrastructure from a single dashboard.
+- **Automate Tasks**: Automate patching, configuration, and maintenance tasks for resources.
+- **Gain Insights**: Collect operational data for performance and compliance monitoring.
+- **Secure Resource Access**: Provide controlled and auditable access to EC2 instances and other AWS resources without SSH or RDP.
+- **Run Commands**: Execute scripts or commands remotely across multiple servers at once.
+- **Patch Management**: Automatically apply security patches to your resources.
+
+## Integration with AWS Services
+
+AWS Systems Manager integrates with various AWS services to enhance its functionality. Key integrations include:
+
+- **Amazon EC2**: Manage EC2 instances, automate patching, and securely access instances.
+- **AWS CloudFormation**: Automate configuration management during infrastructure deployments.
+- **Amazon S3**: Store configuration files, scripts, and logs for Systems Manager processes.
+- **AWS CloudWatch**: Monitor Systems Manager activity and track operational data.
+- **AWS IAM**: Define fine-grained access controls for Systems Manager actions and resources.
+- **AWS Config**: Audit and ensure compliance of your infrastructure by tracking configuration changes.
+- **AWS Secrets Manager**: Securely store and retrieve secrets during automation processes.
+- **AWS Key Management Service (KMS)**: Encrypt sensitive Systems Manager data, such as Parameter Store values.
+- **AWS Organizations**: Manage multiple AWS accounts and resources centrally.
