@@ -1,82 +1,82 @@
 
-# AWS SysOps Exam Notes: SSM Automation, Parameter Store, Inventory, and State Manag
-## SSM Automation
+ AWS SysOps Exam Notes: SSM Automation, Parameter Store, Inventory, and State Manag
+ SSM Automation
 
-### What is SSM Automation?
-AWS Systems Manager (SSM) Automation allows you to simplify and streamline repetitive operational tasks, such as patching instances, rebooting systems, or managing resource configurations. It provides predefined or custom workflows called **runbooks** to perform actions across AWS resources.
+What is SSM Automation?
+AWS Systems Manager (SSM) Automation allows you to simplify and streamline repetitive operational tasks, such as patching instances, rebooting systems, or managing resource configurations. It provides predefined or custom workflows called runbooks to perform actions across AWS resources.
 
-### Automation Runbook
-An **Automation Runbook** is a predefined or custom document (AWS Systems Manager Document or SSM Document) that defines the sequence of actions (steps) to perform a specific task. Runbooks are written in JSON or YAML and can execute AWS API calls, run commands, or interact with AWS resources.
+Automation Runbook
+An Automation Runbook is a predefined or custom document (AWS Systems Manager Document or SSM Document) that defines the sequence of actions (steps) to perform a specific task. Runbooks are written in JSON or YAML and can execute AWS API calls, run commands, or interact with AWS resources.
 
 - Example: The AWS-provided runbook `AWS-StartEC2Instance` starts an EC2 instance.
 - You can create custom runbooks for specific tasks like deploying updates or managing backups.
 
-### Trigger Types
+Trigger Types
 SSM Automation can be triggered in various ways:
-1. **Manual Execution**: Directly run a runbook via the AWS Management Console, CLI, or SDKs.
-2. **Event-Driven**: Trigger automation via AWS CloudWatch Events or EventBridge based on specific events (e.g., an instance entering a failed state).
-3. **Scheduled**: Automate tasks on a recurring schedule using State Manager or CloudWatch Event Rules.
-4. **API/CLI Call**: Trigger automation using AWS CLI or API calls.
+1. Manual Execution: Directly run a runbook via the AWS Management Console, CLI, or SDKs.
+2. Event-Driven: Trigger automation via AWS CloudWatch Events or EventBridge based on specific events (e.g., an instance entering a failed state).
+3. Scheduled: Automate tasks on a recurring schedule using State Manager or CloudWatch Event Rules.
+4. API/CLI Call: Trigger automation using AWS CLI or API calls.
 
----
 
-## Parameter Store
 
-### What is Parameter Store?
+Parameter Store
+
+What is Parameter Store?
 AWS Systems Manager Parameter Store is a secure, scalable, and centralized storage for configuration data and secrets. It helps manage parameters (key-value pairs) used in applications or automation scripts.
 
-- **Types of Parameters**:
-  - **String**: Simple key-value pair.
-  - **SecureString**: Encrypted parameter using AWS KMS.
-  - **StringList**: A list of comma-separated strings.
+- Types of Parameters:
+  - String: Simple key-value pair.
+  - SecureString: Encrypted parameter using AWS KMS.
+  - StringList: A list of comma-separated strings.
 
-### Key Features
-- **Version Control**: Keep track of parameter versions and roll back if needed.
-- **Encryption**: Use AWS Key Management Service (KMS) to encrypt sensitive data.
-- **Hierarchy**: Organize parameters in a hierarchy for easier management (e.g., `/dev/db/password`).
+Key Features
+- Version Control: Keep track of parameter versions and roll back if needed.
+- Encryption: Use AWS Key Management Service (KMS) to encrypt sensitive data.
+- Hierarchy: Organize parameters in a hierarchy for easier management (e.g., `/dev/db/password`).
 
----
 
-## SSM Inventory
 
-### What is SSM Inventory?
+SSM Inventory
+
+What is SSM Inventory?
 AWS SSM Inventory collects and stores metadata about your managed instances, such as OS details, applications, and configuration settings. This helps you track resource information and ensure compliance.
 
-### Features
+Features
 - Collects metadata about installed applications, file details, Windows registry, and more.
 - Enables queries and filters to analyze system inventory.
 - Integrates with AWS Config to track configuration changes.
 
-### Use Cases
-- **Compliance Auditing**: Track installed software and configurations.
-- **Patch Management**: Identify instances requiring updates.
-- **Centralized Reporting**: Generate detailed inventory reports.
+Use Cases
+- Compliance Auditing: Track installed software and configurations.
+- Patch Management: Identify instances requiring updates.
+- Centralized Reporting: Generate detailed inventory reports.
 
----
 
-## SSM State Manager
 
-### What is SSM State Manager?
-AWS Systems Manager State Manager automates the process of keeping your Amazon EC2 and on-premises instances in a consistent and compliant state. It uses **Association Documents** to define the desired state of your resources.
+SSM State Manager
 
-### Features
+ What is SSM State Manager?
+AWS Systems Manager State Manager automates the process of keeping your Amazon EC2 and on-premises instances in a consistent and compliant state. It uses Association Documents to define the desired state of your resources.
+
+ Features
 - Automates repetitive configuration tasks.
 - Ensures compliance with defined baselines (e.g., patch levels, application configurations).
 - Integrates with SSM Inventory to monitor and enforce changes.
 
-### Common Use Cases
+ Common Use Cases
 - Apply and enforce patches or software configurations.
 - Maintain security and compliance baselines.
 - Automate periodic maintenance tasks, such as log rotation.
 
----
 
-## Example YAML for Custom Automation Runbook
+
+ Example YAML for Custom Automation Runbook
 
 Below is an example of a custom SSM automation runbook to restart an EC2 instance:
 
-```yaml
----
+yaml
+
 schemaVersion: "0.3"
 description: "Restart an EC2 instance."
 parameters:
@@ -108,10 +108,9 @@ mainSteps:
       Api: "StartInstances"
       InstanceIds:
         - "{{ InstanceId }}"
-```
 
----
 
-## Conclusion
+
+Conclusion
 
 This document provides an overview of critical AWS Systems Manager components, including Automation, Parameter Store, Inventory, and State Manager. Use this as a quick reference for understanding these features and preparing for the AWS SysOps exam.
