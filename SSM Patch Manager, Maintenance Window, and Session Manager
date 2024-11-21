@@ -1,0 +1,117 @@
+AWS SysOps Exam Notes: SSM Patch Manager, Maintenance Window, and Session Manager
+
+SSM Patch Manager
+
+What is SSM Patch Manager?
+SSM Patch Manager is an AWS Systems Manager feature that automates the process of patching managed instances for operating systems and applications. It ensures instances remain secure and compliant by applying security updates and patches.
+
+Patch Baselines and Patch Groups
+
+Patch Baselines:
+- Define the set of patches to approve or reject.
+- AWS provides default patch baselines for operating systems like Amazon Linux, Ubuntu, Windows, etc.
+- You can create custom patch baselines to suit your organization’s specific requirements.
+- Include rules for:
+  - Auto-approval of patches (e.g., within 7 days of release).
+  - Rejection of specific patches.
+
+Patch Groups:
+- Logical groupings of instances for patching.
+- Use Tags to associate instances with patch groups.
+- Example: All production instances tagged with `PatchGroup: Production` can be patched using a specific patch baseline.
+
+Key Features
+- Compliance Reports: Track which instances are patched or require updates.
+- Custom Patch Rules: Control how and when patches are applied.
+- Integration with Maintenance Window: Schedule patching during off-peak hours.
+
+
+
+Maintenance Window
+
+What is Maintenance Window?
+Maintenance Window in AWS Systems Manager allows you to schedule operational tasks such as patching, updates, or script execution during predefined time periods. This ensures minimal disruption to workloads.
+
+Features
+- Tasks: Assign tasks like patching, running commands, or invoking automation runbooks.
+- Schedule: Define time windows using cron or rate expressions.
+- Targeting: Specify which instances or resources should be managed during the window.
+- Concurrency Control: Set the maximum number of tasks to run simultaneously.
+- Error Handling: Define success and error thresholds for the tasks.
+
+Use Cases
+- Scheduled patching using SSM Patch Manager.
+- Backup automation or log rotation tasks.
+- Applying configuration updates in a controlled manner.
+
+
+
+SSM Session Manager
+
+What is SSM Session Manager?
+Session Manager is a feature of AWS Systems Manager that provides secure, interactive shell or command-line access to EC2 instances without requiring SSH keys or bastion hosts. 
+
+Key Features
+- No SSH Keys: Eliminates the need for managing private key files.
+- Secure Access: All sessions are encrypted and logged in AWS CloudWatch or S3 for auditing.
+- Role-Based Access Control: Permissions are controlled via AWS IAM.
+- Cross-Platform Support: Works on Amazon Linux, Ubuntu, Windows, and more.
+
+Use Cases
+- Securely access instances in private subnets.
+- Execute administrative tasks without opening port 22 (SSH).
+- Audit user actions for compliance and security.
+
+How to Start a Session
+1. Ensure the instance has the SSM Agent installed and an IAM role attached with the `AmazonSSMManagedInstanceCore` policy.
+2. Use the AWS Console, CLI, or SDK:
+   - Console:
+     - Navigate to Systems Manager > Session Manager and start a session.
+   - CLI:
+   
+     aws ssm start-session --target <instance-id>
+   
+
+Benefits of Session Manager
+- Increased Security: No need for inbound SSH or RDP access.
+- Audit Logging: Track all session activity for compliance.
+- Ease of Use: Works without needing to manage SSH keys or bastion hosts.
+
+
+
+Example CLI Commands
+
+Create a Patch Baseline
+
+aws ssm create-patch-baseline \
+    --name "MyCustomBaseline" \
+    --operating-system AMAZON_LINUX_2 \
+    --approval-rules PatchRules="{ApproveAfterDays=7,ComplianceLevel=CRITICAL}"
+
+
+Register a Patch Group
+
+aws ssm register-patch-baseline-for-patch-group \
+    --baseline-id <baseline-id> \
+    --patch-group "Production"
+
+
+Create a Maintenance Window
+
+aws ssm create-maintenance-window \
+    --name "MyMaintenanceWindow" \
+    --schedule "cron(0 2 ?  SUN )" \
+    --duration 4 \
+    --cutoff 1
+
+
+Start a Session Manager Session
+
+aws ssm start-session --target <instance-id>
+
+
+
+
+Conclusion
+
+This document covers the core concepts of SSM Patch Manager, Maintenance Window, and Session Manager, focusing on their features, use cases, and relevant commands for AWS SysOps exam preparation. Use this guide to strengthen your understanding of Systems Manager capabilities.
